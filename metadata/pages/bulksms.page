@@ -1,0 +1,31 @@
+<apex:page StandardController="Opportunity" action="{!setPagination}" extensions="RecordSelectionPaginationController">  
+   <apex:sectionHeader title="Select" subtitle="Opportunities"/>  
+   <apex:form >   
+   <apex:pageBlock id="pageblock" title="Opportunity Selection" mode="maindetail">  
+   <apex:pageBlockButtons >
+       <apex:commandButton value="sendsms to Selected Opportunities" action="{!selectedOpportunity}"/>
+   </apex:pageBlockButtons>
+   Please enter the text to send an SMS :<apex:inputText title="Text" value="{!textmsg}"/>
+     <apex:pageBlockTable value="{!lstOppRecords}" var="Opp">  
+       <apex:column width="20px" >  
+         <apex:inputCheckbox value="{!Opp.Selected}"/>  
+       </apex:column>  
+       <apex:column value="{!Opp.objOpp.Name}"/>  
+       <apex:column value="{!Opp.objOpp.StageName}"/>  
+       <apex:column value="{!Opp.objOpp.Account.Name}"/> 
+       <apex:column value="{!Opp.objOpp.PhoneNumber__c}"/> 
+     </apex:pageBlockTable>  
+     <apex:outputpanel >  
+       <center>  
+       <apex:panelGrid columns="5">  
+         <apex:commandButton style="background:none!important;border:none;padding:0!important;cursor:pointer;" value="◄◄" reRender="pageblock" action="{!first}"/>  
+         <apex:commandButton style="background:none!important;border:none;padding:0!important;cursor:pointer;" value="◄ Previous" reRender="pageblock" action="{!previous}" disabled="{!!hasPrevious}"/>  
+         <apex:outputLabel value="{!intPageNumber} of {!intNumberofPages}" />  
+         <apex:commandButton style="background:none!important;border:none;padding:0!important;cursor:pointer;" value="Next ►" reRender="pageblock" action="{!next}" disabled="{!!hasNext}"/>  
+         <apex:commandButton style="background:none!important;border:none;padding:0!important;cursor:pointer;" value="►►" reRender="pageblock" action="{!last}"/>  
+       </apex:panelGrid>  
+       </center>  
+     </apex:outputpanel>  
+   </apex:pageBlock>  
+   </apex:form>  
+ </apex:page>
